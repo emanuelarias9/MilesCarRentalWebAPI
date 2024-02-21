@@ -32,7 +32,15 @@ namespace MilesCarRentalWebAPI.Controllers
                     query = query.Where(v => v.LocalidadDevolucion == localidadDevolucion);
                 }
                 vehiculos= query.ToList();
-                return StatusCode(StatusCodes.Status200OK, new { mensaje = "ok", Response = vehiculos });
+                if (vehiculos.Any())
+                {
+                    return StatusCode(StatusCodes.Status200OK, new { mensaje = "ok", Response = vehiculos });
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status200OK, new { mensaje = "la consulta no obtuvo resultados", Response = vehiculos });
+                }
+                
             }
             catch (Exception ex)
             {
